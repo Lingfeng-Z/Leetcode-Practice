@@ -74,7 +74,8 @@ if __name__ == '__main__':
     s.trap([0,1,0,2,1,0,1,3,2,1,2,1])
 '''
 
-
+'''
+#Second solution but can not pass the final one testcase.
 class Solution(object):
     def trap(self, height):
         """
@@ -168,7 +169,49 @@ class Solution(object):
                 i += 1
                 result.append(i)
         return result
+'''
 
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        space = 0
+        max_left = 0
+        max_right = 0
+        i = 0
+        a = 0
+        while i < len(height):
+            if i == 0:
+                max_left = 0
+                max_right = 0
+                q = i
+                t = i
+                while q >= 0:
+                    max_left = max(max_left, height[q])
+                    q -= 1
+                while t < len(height):
+                    max_right = max(max_right, height[t])
+                    t += 1
+                space = space + min(max_left, max_right) - height[i]
+            else:
+                temp_max_left = max_left
+                temp_max_right = max_right
+                max_left = 0
+                max_right = 0
+                q = i
+                t = i
+                max_left = max(temp_max_left, height[q])
+                if temp_max_right != height[t-1]:
+                    max_right = temp_max_right
+                else:
+                    while t < len(height):
+                        max_right = max(max_right, height[t])
+                        t += 1
+                space = space + min(max_left, max_right) - height[i]
+            i += 1
+        return space
 
 if __name__ == '__main__':
     s = Solution()
