@@ -1,3 +1,3 @@
-b = 26
-c = b >> 1
-print(c)
+b = [1]
+b.insert(, 0)
+print(b)
